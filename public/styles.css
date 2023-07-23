@@ -44,21 +44,71 @@ footer p {
   margin: 16px;
   float: left;
 }
+
+/* Styling for the color box container */
+.color-box {
+  position: absolute;
+  padding: 10px;
+  background: #fff;
+  border-radius: 7px;
+  box-shadow: 1px 2px 10px #9e9e9e;
+  display: flex;
+  justify-content: center;
+  margin: 40px 0 0 -15px;
+  z-index: 1000000;
+}
+
+/* Styling for the color list */
+.color-list {
+  list-style: none;
+  display: flex;
+}
+
+/* Styling for each color item */
+.color-item {
+  width: 30px;
+  height: 30px;
+  margin: 0 4px;
+  border-style: solid; 
+  border-radius: 100%;
+  border-color: #ccc;
+  border-width: 1.5px;
+  cursor: pointer;
+  box-shadow: 0px 2px 4px #ccc;
+}
+
+.color-item:hover {
+  border-color: #474747;
+}
+
+.note:hover {
+  box-shadow: 0 2px 5px #949494;
+}
+
+
+
 .note h1 {
   font-size: 1.1em;
-  margin-bottom: 6px;
+  margin-bottom: 10px;
 }
-.note p {
+.note .content {
   font-size: 1.1em;
   margin-bottom: 10px;
   white-space: pre-wrap;
   word-wrap: break-word;
 }
 
+.note .date {
+  font-size: 0.7em;
+  color: rgb(142, 142, 142);
+}
+
 .note button {
   position: relative;
   float: right;
   margin-right: 10px;
+  margin-top: -10px;
+  bottom: -18px;
   color: #f5ba13;
   background-color: white;
   border: none;
@@ -67,6 +117,7 @@ footer p {
   cursor: pointer;
   outline: none;
 }
+
 
 form.create-note {
   position: relative;
@@ -77,8 +128,11 @@ form.create-note {
   border-radius: 7px;
   box-shadow: 0 1px 5px rgb(138, 137, 137);
 }
+
 form.create-note input,
-form.create-note textarea {
+form.create-note textarea,
+form.edit-note input,
+form.edit-note textarea {
   width: 100%;
   border: none;
   padding: 4px;
@@ -87,6 +141,15 @@ form.create-note textarea {
   font-family: inherit;
   resize: none;
 }
+
+
+
+form.create-note input,
+form.edit-note input {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
 form.create-note button {
   position: absolute;
   right: 18px;
@@ -95,8 +158,8 @@ form.create-note button {
   color: #fff;
   border: none;
   border-radius: 50%;
-  width: 36px;
-  height: 36px;
+  width: 45px;
+  height: 45px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   cursor: pointer;
   outline: none;

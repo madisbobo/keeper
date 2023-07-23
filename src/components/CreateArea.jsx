@@ -30,15 +30,17 @@ function CreateArea(props) {
         content: ""
       });
     }
-    
   }
 
 
   function handleKeypress(event) {
-    if (event.key === "Enter") {
+    if (event.key === "Enter" && event.ctrlKey) {
         submitNote();
         event.preventDefault();
+    } else if (event.key === "Enter" && event.target.name === "title") {
+        event.preventDefault();
     }
+
     
   }
 
@@ -52,6 +54,7 @@ function CreateArea(props) {
             onKeyDown={handleKeypress}
             value={note.title}
             placeholder="Title"
+            autoFocus
           />
         )}
         <textarea
