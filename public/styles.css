@@ -12,6 +12,8 @@ body {
 }
 
 header {
+  display: flex;
+  justify-content: space-between;
   background-color: #f5ba13;
   margin: auto -16px;
   padding: 16px 32px;
@@ -19,10 +21,44 @@ header {
 }
 
 header h1 {
+  display: flex;
+  margin: auto;
   color: #fff;
   font-family: "McLaren", cursive;
   font-weight: 200;
 }
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: #fff;
+  font-family: "McLaren", cursive;
+  font-weight: 200;
+  margin-right: 30px;
+}
+
+nav h3 {
+  margin-right: 30px;
+}
+
+header a {
+  text-decoration: none;
+  color: inherit;
+  margin-right: 10px;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  color: white;
+  margin-right: 15px;
+}
+
+
 
 footer {
   position: absolute;
@@ -165,6 +201,4 @@ form.create-note button {
   outline: none;
 }
 
-.logo {
-  margin-right: 10px;
-}
+

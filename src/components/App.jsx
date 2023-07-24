@@ -1,136 +1,25 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import CreateArea from "./CreateArea";
-import Footer from "./Footer";
-import Header from "./Header";
-import Note from "./Note";
+import React from "react";
+import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
+import Home from "./Home";
+import About from "./About";
+import Header from "./Header"
+import Footer from "./Footer"
+
+
 
 function App() {
-    // State to hold the notes fetched from the backend
-    const [notes, setNotes] = useState([]);
-
-    // Function to fetch all notes from the Django API
-    async function getNotes() {
-        try {
-            const response = await axios.get("http://127.0.0.1:8000/notes/notes/");
-            const apiNotes = response.data;
-            const mappedNotes = apiNotes.map((apiNote) => ({
-                id: apiNote.id,
-                title: apiNote.title,
-                content: apiNote.description,
-                lastUpdated: apiNote.last_updated,
-                bgColor: apiNote.bg_color
-            }));
-
-            // Update the 'notes' state with the fetched notes
-            setNotes(mappedNotes);
-        } catch (error) {
-            console.error("Error fetching notes:", error);
-        }
-    }
-
-
-    // Function to add a new note
-    async function addNote(newNote) {
-        try {
-            // Make a POST request to save the new note to the backend
-            const response = await axios.post("http://127.0.0.1:8000/notes/notes/", {
-                title: newNote.title,
-                description: newNote.content
-            });
-
-            // Backend returns the saved note data with an 'id'
-            const savedNote = {
-                id: response.data.id,
-                title: response.data.title,
-                content: response.data.description,
-                lastUpdated: response.data.last_updated,
-                bgColor: response.data.bg_color
-            };
-            // Update the 'notes' state with the new note
-            setNotes((prevNotes) => [...prevNotes, savedNote]);
-
-        } catch (error) {
-            console.log(`Received an error: ${error}`);
-        }
-    }
-
-    // Function to edit a note
-    async function editNote(id, updatedNote) {
-        try {
-            const response = await axios.put(`http://127.0.0.1:8000/notes/notes/${id}`, {
-                title: updatedNote.title,
-                description: updatedNote.content,
-                bg_color: updatedNote.bgColor
-            });
-            // Update the 'notes' state with the updated note
-            setNotes((prevNotes) =>
-                prevNotes.map((noteItem) => {
-                    // FInd out where the ID has become string...
-                    if (noteItem.id === id) {
-                        const updatedItem = {
-                            ...noteItem,
-                            ...updatedNote,
-                        }
-                        return updatedItem;
-                    }
-                    return noteItem;
-                })
-            );
-
-        } catch (error) {
-            console.log(`Error editing a note: ${error}`);
-        }
-    }
-
-
-
-
-
-    // Function to delete a note
-    async function deleteNote(id) {
-        try {
-            // Make a DELETE request to remove the note from the backend
-            await axios.delete(`http://127.0.0.1:8000/notes/notes/${id}`);
-
-            // Update the 'notes' state by filtering out the deleted note
-            setNotes((prevNotes) =>
-                prevNotes.filter((noteItem) => noteItem.id !== id)
-            );
-        } catch (error) {
-            console.log(`Error message: ${error}`);
-        }
-    }
-
-
-    // Use useEffect to fetch notes when the component mounts
-    useEffect(() => {
-        getNotes();
-    }, []);
-
-
     return (
-        <div>
-            <Header />
-            <CreateArea onAdd={addNote} />
-            {notes.map((noteItem) => {
-                return (
-                    <Note
-                        key={noteItem.id}
-                        id={noteItem.id}
-                        title={noteItem.title}
-                        content={noteItem.content}
-                        lastUpdated={noteItem.lastUpdated}
-                        bgColor={noteItem.bgColor}
-                        value={noteItem}
-                        onEdit={editNote}
-                        onDelete={deleteNote}
-                    />
-                );
-            })}
-            <Footer />
-        </div>
-    );
+            <BrowserRouter>
+                <Header />
+                <Footer />
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/about" element={<About />} />
+                </Routes>
+            </BrowserRouter>
+    )
 }
 
 export default App;
+
+
